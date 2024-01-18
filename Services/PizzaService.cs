@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using PizzaAPI.Data;
 using PizzaAPI.Models;
 
@@ -12,7 +13,7 @@ public class PizzaService
         _context = context;
     }
 
-    public List<Pizza> GetAll() => throw new NotImplementedException();
+    public IEnumerable<Pizza> GetAll() => _context.Pizzas.AsNoTracking().ToList();
 
     public Pizza? Get(int id) => throw new NotImplementedException();
 
