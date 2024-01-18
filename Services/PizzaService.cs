@@ -51,4 +51,7 @@ public static class PizzaService
 
         Pizzas[index] = pizza;
     }
+
+    public static void AddTopping(int PizzaId, int ToppingId) => throw new NotImplementedException();
+    public static void UpdateSauce(int PizzaId, int SauceId) => throw new NotImplementedException();
 }

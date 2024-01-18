@@ -54,4 +54,27 @@ public class PizzaController : ControllerBase
         PizzaService.Delete(id);
         return NoContent();
     }
+
+
+    [HttpPut("{id}/addtopping")]
+    public IActionResult AddTopping(int id, int toppingId)
+    {
+        var pizzaToUpdate = PizzaService.Get(id);
+        if (pizzaToUpdate is null)
+            return NotFound();
+
+        PizzaService.AddTopping(id, toppingId);
+        return NoContent();
+    }
+
+    [HttpPut("{id}/updatesauce")]
+    public IActionResult UpdateSauce(int id, int sauceId)
+    {
+        var pizzaToUpdate = PizzaService.Get(id);
+        if (pizzaToUpdate is null)
+            return NotFound();
+
+        PizzaService.UpdateSauce(id, sauceId);
+        return NoContent();
+    }
 }
