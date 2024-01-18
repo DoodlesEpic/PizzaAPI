@@ -30,7 +30,16 @@ public class PizzaService
         return pizza;
     }
 
-    public void Delete(int Id) => throw new NotImplementedException();
+    public void Delete(int Id)
+    {
+        var pizzaToDelete = _context.Pizzas.Find(Id);
+
+        if (pizzaToDelete is null)
+            throw new InvalidOperationException("Pizza not found.");
+
+        _context.Pizzas.Remove(pizzaToDelete);
+        _context.SaveChanges();
+    }
 
     public void Update(Pizza pizza) => throw new NotImplementedException();
 
@@ -49,7 +58,8 @@ public class PizzaService
         _context.SaveChanges();
     }
 
-    public void UpdateSauce(int PizzaId, int SauceId) {
+    public void UpdateSauce(int PizzaId, int SauceId)
+    {
         var pizzaToUpdate = _context.Pizzas.Find(PizzaId);
         var sauceToAdd = _context.Sauces.Find(SauceId);
 
