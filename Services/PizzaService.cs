@@ -1,10 +1,16 @@
+using PizzaAPI.Data;
 using PizzaAPI.Models;
 
 namespace PizzaAPI.Services;
 
 public class PizzaService
 {
-    PizzaService() { }
+    private readonly PizzaContext _context;
+
+    public PizzaService(PizzaContext context)
+    {
+        _context = context;
+    }
 
     public List<Pizza> GetAll() => throw new NotImplementedException();
 
