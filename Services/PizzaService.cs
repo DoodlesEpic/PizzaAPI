@@ -15,7 +15,12 @@ public class PizzaService
 
     public IEnumerable<Pizza> GetAll() => _context.Pizzas.AsNoTracking().ToList();
 
-    public Pizza? Get(int id) => throw new NotImplementedException();
+    public Pizza? Get(int id) =>
+        _context
+            .Pizzas.Include(p => p.Sauce)
+            .Include(p => p.Toppings)
+            .AsNoTracking()
+            .SingleOrDefault(p => p.Id == id);
 
     public void Add(Pizza pizza) => throw new NotImplementedException();
 
