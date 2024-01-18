@@ -9,21 +9,19 @@ public static class PizzaService
 
     static PizzaService()
     {
-        Pizzas = new List<Pizza>
-        {
-            new Pizza
-            {
+        Pizzas =
+        [
+            new() {
                 Id = 1,
                 Name = "Classic Italian",
                 IsGlutenFree = false
             },
-            new Pizza
-            {
+            new() {
                 Id = 2,
                 Name = "Veggie",
                 IsGlutenFree = true
             }
-        };
+        ];
     }
 
     public static List<Pizza> GetAll() => Pizzas;
