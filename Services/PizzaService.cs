@@ -22,7 +22,13 @@ public class PizzaService
             .AsNoTracking()
             .SingleOrDefault(p => p.Id == id);
 
-    public void Add(Pizza pizza) => throw new NotImplementedException();
+    public Pizza Add(Pizza pizza)
+    {
+        _context.Pizzas.Add(pizza);
+        _context.SaveChanges();
+
+        return pizza;
+    }
 
     public void Delete(int Id) => throw new NotImplementedException();
 
