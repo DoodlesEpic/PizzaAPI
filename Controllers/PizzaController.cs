@@ -8,15 +8,17 @@ namespace PizzaAPI.Controllers;
 [Route("[controller]")]
 public class PizzaController : ControllerBase
 {
-    public PizzaController() { }
+    PizzaService _service;
+
+    public PizzaController(PizzaService service) => _service = service;
 
     [HttpGet]
-    public ActionResult<List<Pizza>> GetAll() => PizzaService.GetAll();
+    public ActionResult<List<Pizza>> GetAll() => _service.GetAll();
 
     [HttpGet("{id}")]
     public ActionResult<Pizza> Get(int id)
     {
-        var pizza = PizzaService.Get(id);
+        var pizza = _service.Get(id);
         if (pizza is null)
             return NotFound();
 
@@ -26,7 +28,7 @@ public class PizzaController : ControllerBase
     [HttpPost]
     public IActionResult Create(Pizza pizza)
     {
-        PizzaService.Add(pizza);
+        _service.Add(pizza);
         return CreatedAtAction(nameof(Get), new { id = pizza.Id }, pizza);
     }
 
@@ -36,45 +38,44 @@ public class PizzaController : ControllerBase
         if (id != pizza.Id)
             return BadRequest();
 
-        var existingPizza = PizzaService.Get(id);
+        var existingPizza = _service.Get(id);
         if (existingPizza is null)
             return NotFound();
 
-        PizzaService.Update(pizza);
+        _service.Update(pizza);
         return NoContent();
     }
 
     [HttpDelete("{id}")]
     public IActionResult Delete(int id)
     {
-        var pizza = PizzaService.Get(id);
+        var pizza = _service.Get(id);
         if (pizza is null)
             return NotFound();
 
-        PizzaService.Delete(id);
+        _service.Delete(id);
         return NoContent();
     }
-
 
     [HttpPut("{id}/addtopping")]
     public IActionResult AddTopping(int id, int toppingId)
     {
-        var pizzaToUpdate = PizzaService.Get(id);
+        var pizzaToUpdate = _service.Get(id);
         if (pizzaToUpdate is null)
             return NotFound();
 
-        PizzaService.AddTopping(id, toppingId);
+        _service.AddTopping(id, toppingId);
         return NoContent();
     }
 
     [HttpPut("{id}/updatesauce")]
     public IActionResult UpdateSauce(int id, int sauceId)
     {
-        var pizzaToUpdate = PizzaService.Get(id);
+        var pizzaToUpdate = _service.Get(id);
         if (pizzaToUpdate is null)
             return NotFound();
 
-        PizzaService.UpdateSauce(id, sauceId);
+        _service.UpdateSauce(id, sauceId);
         return NoContent();
     }
 }
