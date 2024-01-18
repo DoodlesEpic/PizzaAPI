@@ -41,7 +41,16 @@ public class PizzaService
         _context.SaveChanges();
     }
 
-    public void Update(Pizza pizza) => throw new NotImplementedException();
+    public void Update(Pizza pizza)
+    {
+        var existingPizza = _context.Pizzas.Find(pizza.Id);
+
+        if (existingPizza is null)
+            throw new InvalidOperationException("Pizza not found.");
+
+        _context.Pizzas.Update(pizza);
+        _context.SaveChanges();
+    }
 
     public void AddTopping(int PizzaId, int ToppingId)
     {
