@@ -34,7 +34,20 @@ public class PizzaService
 
     public void Update(Pizza pizza) => throw new NotImplementedException();
 
-    public void AddTopping(int PizzaId, int ToppingId) => throw new NotImplementedException();
+    public void AddTopping(int PizzaId, int ToppingId)
+    {
+        var pizzaToUpdate = _context.Pizzas.Find(PizzaId);
+        var toppingToAdd = _context.Toppings.Find(ToppingId);
+
+        if (pizzaToUpdate is null || toppingToAdd is null)
+            throw new InvalidOperationException("Pizza or Topping not found.");
+
+        if (pizzaToUpdate.Toppings is null)
+            pizzaToUpdate.Toppings = new List<Topping>();
+
+        pizzaToUpdate.Toppings.Add(toppingToAdd);
+        _context.SaveChanges();
+    }
 
     public void UpdateSauce(int PizzaId, int SauceId) => throw new NotImplementedException();
 }
