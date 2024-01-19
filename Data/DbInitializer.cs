@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Mvc.Infrastructure;
 using PizzaAPI.Models;
 
 namespace PizzaAPI.Data;
@@ -8,7 +7,7 @@ public static class DbInitializer
     public static void Initialize(PizzaContext context)
     {
         if (context.Pizzas.Any() && context.Sauces.Any() && context.Toppings.Any())
-            throw new Exception("Database already initialized");
+            return;
 
         var pepperoniTopping = new Topping { Name = "Pepperoni", Calories = 130 };
         var sausageTopping = new Topping { Name = "Sausage", Calories = 100 };
