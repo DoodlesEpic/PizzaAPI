@@ -27,4 +27,7 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
 
+// Seed the database with some data for testing if it's empty
+app.CreateDbIfEmpty();
+
 app.Run();
