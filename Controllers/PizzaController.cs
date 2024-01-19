@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PizzaAPI.Models;
 using PizzaAPI.Services;
@@ -22,6 +23,7 @@ public class PizzaController(PizzaService service) : ControllerBase
     }
 
     [HttpPost]
+    [Authorize]
     public ActionResult Create(Pizza pizza)
     {
         service.Add(pizza);
@@ -29,6 +31,7 @@ public class PizzaController(PizzaService service) : ControllerBase
     }
 
     [HttpPut("{id}")]
+    [Authorize]
     public ActionResult Update(int id, Pizza pizza)
     {
         if (id != pizza.Id)
@@ -43,6 +46,7 @@ public class PizzaController(PizzaService service) : ControllerBase
     }
 
     [HttpDelete("{id}")]
+    [Authorize]
     public ActionResult Delete(int id)
     {
         var pizza = service.Get(id);
@@ -54,6 +58,7 @@ public class PizzaController(PizzaService service) : ControllerBase
     }
 
     [HttpPut("{id}/addtopping")]
+    [Authorize]
     public ActionResult AddTopping(int id, int toppingId)
     {
         service.AddTopping(id, toppingId);
@@ -61,6 +66,7 @@ public class PizzaController(PizzaService service) : ControllerBase
     }
 
     [HttpPut("{id}/updatesauce")]
+    [Authorize]
     public ActionResult UpdateSauce(int id, int sauceId)
     {
         service.UpdateSauce(id, sauceId);
