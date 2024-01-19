@@ -26,14 +26,14 @@ public class PizzaController : ControllerBase
     }
 
     [HttpPost]
-    public IActionResult Create(Pizza pizza)
+    public ActionResult Create(Pizza pizza)
     {
         _service.Add(pizza);
         return CreatedAtAction(nameof(Get), new { id = pizza.Id }, pizza);
     }
 
     [HttpPut("{id}")]
-    public IActionResult Update(int id, Pizza pizza)
+    public ActionResult Update(int id, Pizza pizza)
     {
         if (id != pizza.Id)
             return BadRequest();
@@ -47,7 +47,7 @@ public class PizzaController : ControllerBase
     }
 
     [HttpDelete("{id}")]
-    public IActionResult Delete(int id)
+    public ActionResult Delete(int id)
     {
         var pizza = _service.Get(id);
         if (pizza is null)
@@ -58,14 +58,14 @@ public class PizzaController : ControllerBase
     }
 
     [HttpPut("{id}/addtopping")]
-    public IActionResult AddTopping(int id, int toppingId)
+    public ActionResult AddTopping(int id, int toppingId)
     {
         _service.AddTopping(id, toppingId);
         return NoContent();
     }
 
     [HttpPut("{id}/updatesauce")]
-    public IActionResult UpdateSauce(int id, int sauceId)
+    public ActionResult UpdateSauce(int id, int sauceId)
     {
         _service.UpdateSauce(id, sauceId);
         return NoContent();
