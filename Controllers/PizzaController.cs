@@ -60,10 +60,6 @@ public class PizzaController : ControllerBase
     [HttpPut("{id}/addtopping")]
     public IActionResult AddTopping(int id, int toppingId)
     {
-        var pizzaToUpdate = _service.Get(id);
-        if (pizzaToUpdate is null)
-            return NotFound();
-
         _service.AddTopping(id, toppingId);
         return NoContent();
     }
@@ -71,10 +67,6 @@ public class PizzaController : ControllerBase
     [HttpPut("{id}/updatesauce")]
     public IActionResult UpdateSauce(int id, int sauceId)
     {
-        var pizzaToUpdate = _service.Get(id);
-        if (pizzaToUpdate is null)
-            return NotFound();
-
         _service.UpdateSauce(id, sauceId);
         return NoContent();
     }
