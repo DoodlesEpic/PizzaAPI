@@ -4,20 +4,13 @@ using PizzaAPI.Models;
 
 namespace PizzaAPI.Services;
 
-public class PizzaService
+public class PizzaService(PizzaContext context)
 {
-    private readonly PizzaContext _context;
-
-    public PizzaService(PizzaContext context)
-    {
-        _context = context;
-    }
-
     public IEnumerable<Pizza> GetAll() =>
-        _context.Pizzas.Include(p => p.Sauce).Include(p => p.Toppings).AsNoTracking();
+        context.Pizzas.Include(p => p.Sauce).Include(p => p.Toppings).AsNoTracking();
 
     public Pizza? Get(int id) =>
-        _context
+        context
             .Pizzas.Include(p => p.Sauce)
             .Include(p => p.Toppings)
             .AsNoTracking()
@@ -25,38 +18,38 @@ public class PizzaService
 
     public Pizza Add(Pizza pizza)
     {
-        _context.Pizzas.Add(pizza);
-        _context.SaveChanges();
+        context.Pizzas.Add(pizza);
+        context.SaveChanges();
 
         return pizza;
     }
 
     public void Delete(int Id)
     {
-        var pizzaToDelete = _context.Pizzas.Find(Id);
+        var pizzaToDelete = context.Pizzas.Find(Id);
 
         if (pizzaToDelete is null)
             throw new InvalidOperationException("Pizza not found.");
 
-        _context.Pizzas.Remove(pizzaToDelete);
-        _context.SaveChanges();
+        context.Pizzas.Remove(pizzaToDelete);
+        context.SaveChanges();
     }
 
     public void Update(Pizza pizza)
     {
-        var existingPizza = _context.Pizzas.Find(pizza.Id);
+        var existingPizza = context.Pizzas.Find(pizza.Id);
 
         if (existingPizza is null)
             throw new InvalidOperationException("Pizza not found.");
 
-        _context.Pizzas.Update(pizza);
-        _context.SaveChanges();
+        context.Pizzas.Update(pizza);
+        context.SaveChanges();
     }
 
     public void AddTopping(int PizzaId, int ToppingId)
     {
-        var pizzaToUpdate = _context.Pizzas.Find(PizzaId);
-        var toppingToAdd = _context.Toppings.Find(ToppingId);
+        var pizzaToUpdate = context.Pizzas.Find(PizzaId);
+        var toppingToAdd = context.Toppings.Find(ToppingId);
 
         if (pizzaToUpdate is null || toppingToAdd is null)
             throw new InvalidOperationException("Pizza or Topping not found.");
@@ -65,18 +58,18 @@ public class PizzaService
             pizzaToUpdate.Toppings = new List<Topping>();
 
         pizzaToUpdate.Toppings.Add(toppingToAdd);
-        _context.SaveChanges();
+        context.SaveChanges();
     }
 
     public void UpdateSauce(int PizzaId, int SauceId)
     {
-        var pizzaToUpdate = _context.Pizzas.Find(PizzaId);
-        var sauceToAdd = _context.Sauces.Find(SauceId);
+        var pizzaToUpdate = context.Pizzas.Find(PizzaId);
+        var sauceToAdd = context.Sauces.Find(SauceId);
 
         if (pizzaToUpdate is null || sauceToAdd is null)
             throw new InvalidOperationException("Pizza or Sauce not found.");
 
         pizzaToUpdate.Sauce = sauceToAdd;
-        _context.SaveChanges();
+        context.SaveChanges();
     }
 }

@@ -20,8 +20,7 @@ public static class DbInitializer
 
         var pizzas = new Pizza[]
         {
-            new Pizza
-            {
+            new() {
                 Name = "Meat Lovers",
                 Sauce = tomatoSauce,
                 Toppings = new List<Topping>
@@ -32,14 +31,12 @@ public static class DbInitializer
                     chickenTopping
                 }
             },
-            new Pizza
-            {
+            new() {
                 Name = "Hawaiian",
                 Sauce = tomatoSauce,
                 Toppings = new List<Topping> { pineappleTopping, hamTopping }
             },
-            new Pizza
-            {
+            new() {
                 Name = "Alfredo Chicken",
                 Sauce = alfredoSauce,
                 Toppings = new List<Topping> { chickenTopping }
