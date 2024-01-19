@@ -13,7 +13,7 @@ public class PizzaController : ControllerBase
     public PizzaController(PizzaService service) => _service = service;
 
     [HttpGet]
-    public ActionResult<List<Pizza>> GetAll() => _service.GetAll();
+    public IEnumerable<Pizza> GetAll() => _service.GetAll();
 
     [HttpGet("{id}")]
     public ActionResult<Pizza> Get(int id)
