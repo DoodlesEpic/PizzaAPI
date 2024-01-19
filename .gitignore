@@ -1,5 +1,11 @@
+# Environment and artifacts
 .env
 .config/
 .vscode/
 obj/
 bin/
+
+# Database files
+*.db
+*.db-shm
+*.db-wal
