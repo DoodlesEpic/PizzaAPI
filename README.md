@@ -30,3 +30,7 @@ dotnet ef database update --context IdentityContext
 ## Documentation
 
 You may view an interactive OpenAPI documentation on the Swagger UI at [https://localhost:5001/swagger](https://localhost:5001/swagger). Make sure to change the port number to whatever port was chosen for the development server. This is only enabled in development.
+
+## License
+
+This project is licensed under the GNU Affero General Public License v3.0. Read the [LICENSE](LICENSE) file for more information.
